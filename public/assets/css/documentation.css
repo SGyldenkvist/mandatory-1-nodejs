@@ -22,3 +22,9 @@ main h2 {
     color: #50364f;
     margin-top: 40px;
 }
+
+main h3 {
+    color: #50364f;
+    font-size: 1.2rem;
+    margin-top: 28px;
+}

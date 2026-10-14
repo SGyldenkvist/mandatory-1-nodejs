@@ -31,3 +31,10 @@ export const nodejsPage = constructPage(nodejs, {
     tabTitle: 'Node.js | Documentation',
     cssLinks: '<link rel="stylesheet" href="/assets/css/documentation.css">'
 });
+
+const javascript = readPage('public/pages/javascript/javascript.html');
+
+export const javascriptPage = constructPage(javascript, {
+    tabTitle: 'JavaScript | Documentation',
+    cssLinks: '<link rel="stylesheet" href="/assets/css/documentation.css">'
+});

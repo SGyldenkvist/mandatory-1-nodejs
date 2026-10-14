@@ -1,5 +1,5 @@
 import express from 'express';
-import { frontpagePage, nodejsPage } from './templatingEngine/pages.js';
+import { frontpagePage, nodejsPage, javascriptPage } from './templatingEngine/pages.js';
 
 const app = express();
 
@@ -14,6 +14,10 @@ app.get('/', (req, res) => {
 
 app.get('/nodejs', (req, res) => {
     res.send(nodejsPage);
+});
+
+app.get('/javascript', (re, res) => {
+    res.send(javascriptPage);
 });
 
 

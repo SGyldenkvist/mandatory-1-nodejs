@@ -28,9 +28,11 @@ header nav {
     align-items: center;
 }
 
-header nav span {
+header .site-title {
     font-size: 1.2rem;
     font-weight: 600;
+    color: #fff8fa;
+    text-decoration: none;
 }
 
 /*
