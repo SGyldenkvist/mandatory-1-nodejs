@@ -1,5 +1,5 @@
 import express from 'express';
-import { readPage, constructPage } from './templatingEngine/templatingEngine.js';
+import { frontpagePage } from './templatingEngine/pages.js';
 
 const app = express();
 
@@ -8,14 +8,7 @@ app.use(express.static('public'));
 const PORT = process.env.PORT ?? 8080;
 
 app.get('/', (req, res) => {
-    const frontPage = readPage('public/pages/frontpage/frontpage.html');
-
-    const page = constructPage(frontPage, { 
-        tabTitle: 'Node.js Documentation',
-        cssLinks: '<link rel="stylesheet" href="/pages/frontpage/frontpage.css">'
-    });
-
-    res.send(page);
+    res.send(frontpagePage);
 
 });
 
