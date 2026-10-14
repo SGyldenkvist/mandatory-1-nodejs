@@ -3,6 +3,8 @@ import { readPage, constructPage } from './templatingEngine/templatingEngine.js'
 
 const app = express();
 
+app.use(express.static('public'));
+
 const PORT = process.env.PORT ?? 8080;
 
 app.get('/', (req, res) => {
