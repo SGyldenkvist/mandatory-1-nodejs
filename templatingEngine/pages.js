@@ -64,7 +64,15 @@ const topicCards = topics.map((topic) => `
 const frontpage = readPage('public/pages/frontpage/frontpage.html')
     .replace('{{TOPIC_CARDS}}', topicCards);
 
+
 export const frontpagePage = constructPage(frontpage, {
     tabTitle: 'Node.js Documentation',
     cssLinks: '<link rel="stylesheet" href="/pages/frontpage/frontpage.css">'
+});
+
+
+const nodejs = readPage('public/pages/nodejs/nodejs.html');
+
+export const nodejsPage = constructPage(nodejs, {
+    tabTitle: 'Node.js | Documentation'
 });

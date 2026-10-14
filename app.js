@@ -1,5 +1,5 @@
 import express from 'express';
-import { frontpagePage } from './templatingEngine/pages.js';
+import { frontpagePage, nodejsPage } from './templatingEngine/pages.js';
 
 const app = express();
 
@@ -10,6 +10,10 @@ const PORT = process.env.PORT ?? 8080;
 app.get('/', (req, res) => {
     res.send(frontpagePage);
 
+});
+
+app.get('/nodejs', (req, res) => {
+    res.send(nodejsPage);
 });
 
 
