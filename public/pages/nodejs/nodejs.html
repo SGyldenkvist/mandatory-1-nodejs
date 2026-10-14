@@ -1,3 +1,126 @@
 <h1>Node.js</h1>
 
-<p>My notes ...</p>
+<p>Documentation of Node.js concepts, including npm, dependencies, modules and environment variables</p>
+
+<h2>What is Node.js?</h2>
+<p>Node.js is a runtime environment that allows JavaScript to execute outside the browser. This way, JavaScript can be used for both frontend and backend development.</p>
+
+<h2>Running JavaScript with Node.js</h2>
+<p>JavaScript files can be executed with Node.js through the terminal using the node command and the filename.</p>
+<pre><code>node app.js</code></pre>
+<p>Node.js also provides a REPL (Read-Eval-Print Loop), which allows JavaScript code to be executed interactively in the terminal.</p>
+<p>To start the REPL:</p>
+<pre><code>node</code></pre>
+<p>Example:</p>
+<pre><code>> 2 + 3
+5</code></pre>
+<p>To exit the REPL, type .exit.</p>
+
+
+<h2>npm and dependencies</h2>
+<p>npm (Node package manager) is used to install and manage packages in a Node.js project. The packages are the project's dependencies.</p>
+<p>To initialize a new Node.js project:</p>
+<pre><code>npm init</code></pre>
+<p>This command guides you through creating a package.json file, where you can configure project information such as its name, version and description.</p>
+<p>To initialize a project using default values:</p>
+<pre><code>npm init -y</code></pre>
+<p>To install a package like Express (a web framework for Node.js):</p>
+<pre><code>npm install express</code></pre>
+<p>The installed package is added to the project's dependencies in package.json.</p>
+<p>To install the dependencies listed in an existing package.json:</p>
+<pre><code>npm install</code></pre>
+
+<h2>package.json, package-lock.json and node_modules</h2>
+<p>package.json contains information about the project, including its dependencies and scripts.</p>
+<p>Example from this documentation project's package.json:</p>
+<pre><code>{
+    "name": "mandatory-1",
+    "version": "1.0.0",
+    "type": "module",
+    "dependencies": {
+        "express": "^5.2.1"
+    }
+}
+</code></pre>
+<p>package-lock.json records the exact dependency versions installed.</p>
+<p>The node_modules directory contains the installed packages.</p>
+
+<h2>npm scripts and nodemon</h2>
+<p>npm scripts are commands defined in the scripts section of package.json. They make it easier to run common tasks.</p>
+<p>Example from the Planter project:</p>
+<pre><code>"scripts": {
+    "start": "cross-env PORT=80 node app.js",
+    "start-dev": "cross-env PORT=9090 nodemon app.js"
+}</code></pre>
+<p>npm start runs the start script and starts the application on port 80.</p>
+<p>npm run start-dev runs the development script on port 9090.</p>
+<p>Nodemon is a development tool that automatically restarts the Node.js application when watched files change.</p>
+<p>cross-env allows environment variables to be set across different operating systems.</p>
+
+<h2>CommonJS vs. ES Modules</h2>
+<p>Node.js supports different module systems for importing and exporting code between files.</p>
+<p>CommonJS uses require() to import modules and module.exports to export them.</p>
+<pre><code>const express = require('express');</code></pre>
+<p>ES Modules use import and export.</p>
+<pre><code>import express from 'express';</code></pre>
+
+
+<h2>Import and Export</h2>
+<p>Modules allow code to be organized into separate files. Import and export make it possible to reuse code between these files.</p>
+<h3>CommonJS example:</h3>
+<p>In CommonJS, require() is used to import modules, and module.exports is used to export values.</p>
+<p>fruitOrchard.json:</p>
+<pre><code>{
+    "fruits": ["🥭", "🥭", "🥝", "🍉", "🍒", "🍇"]
+}</code></pre>
+<p>CommonJS fruit module:</p>
+<pre><code>const fruitOrchard = require('./fruitOrchard.json');
+
+module.exports = {
+    fruits: fruitOrchard.fruits,
+    slogan: "Yummy yummy in my tummy"
+};</code></pre>
+
+<h3>ES Modules example:</h3>
+<p>In ES Modules, export default makes a value available for import in another file.</p>
+<p>fruitsUtilESModule.js:</p>
+<pre><code>const fruitOrchard = 'The fruits have been harvested';
+
+export default {
+    fruits: fruitOrchard,
+    slogan: "They are colorful, what is there not to like"
+};</code></pre>
+<p>app.js:</p>
+<pre><code>import fruitPackage from './util/fruitsUtilESModule.js';
+
+console.log(fruitPackage.slogan, fruitPackage.fruits);</code></pre>
+<p>ES Modules support both named exports and default exports. Named exports are imported using curly braces {}, while default exports are imported without them.</p>
+<p>Example of a named export:</p>
+<pre><code>// templatingEngine.js
+export function readPage(path) {
+    return fs.readFileSync(path, 'utf-8');
+}
+
+// pages.js
+import { readPage } from './templatingEngine.js';</code></pre>
+
+<p>ES modules can be enabled in a Node.js project by setting "type": "module" in package.json.</p>
+
+<h2>Environment variables</h2>
+<p>Environment variables allow configuration values to be provided outside the source code. In Node.js they can be accessed through process.env.</p>
+<pre><code>const PORT = process.env.PORT ?? 8080;</code></pre>
+<p>This uses the PORT environment variable if it is defined. Otherwise, the default value is 8080.</p>
+<p>The ?? operator is called the nullish coalescing operator. It returns the value on the right if the value on the left is null or undefined.</p>
+<p>cross-env can be used in npm scripts to set environment variables. For example, cross-env PORT=9090 sets the PORT environment variable to 9090, which can then be accessed through process.env.PORT in the application.</p>
+
+
+<h2>Node.js Built-in modules (fs and path)</h2>
+<p>Node.js includes built-in modules such as fs for working with files and path for working with file paths.</p>
+<pre><code>import fs from 'fs';
+const content = fs.readFileSync("example.txt", "utf-8");
+</code></pre>
+<p>fs.readFileSync() reads the contents of a file synchronously. The "utf-8" encoding returns the content as a string. Synchronous means that the program waits until the file has been read before continuing.</p>
+<p>The path module can be used to work with file paths. The path.resolve() method creates an absolute path.</p>
+<pre><code>import path from 'path';
+
+const filePath = path.resolve('public/index.html');</code></pre>
