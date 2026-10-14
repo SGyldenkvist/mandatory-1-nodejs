@@ -1,0 +1,51 @@
+/*
+kun for forsiden:
+*/
+.intro-label {
+    color: #986580;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+}
+
+main hr {
+    border: none;
+    border-top: 1px solid #e2d3dc;
+    margin: 30px 0;
+}
+
+main h2 {
+    color: #50364f;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.topic-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fffcfd;
+    border: 1px solid #e4d2dd;
+    padding: 20px;
+    text-decoration: none;
+    color: #50364f;
+    border-radius: 12px;
+    margin-bottom: 12px;
+
+
+}
+
+.topic-card:hover {
+    background-color: #f5ebf1;
+}
+
+.topic-card span:last-child {
+    font-size: 1.4rem;
+    color: #936483;
+}
+
+.topic-card p {
+    color: #796a76;
+    font-size: 0.9rem;
+    margin: 6px 0 0;
+}
