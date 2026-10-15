@@ -1,3 +1,447 @@
 <h1>JavaScript</h1>
 
 <p>Documentation of JavaScript concepts, including data types, scope, functions, array methods and Date.</p>
+
+
+<h2>Data Types</h2>
+<p>JavaScript has eight data types: String, Number, Boolean, BigInt, Undefined, Null, Symbol and Object.</p>
+<pre><code>const name = "Maxi";                  // String
+const age = 9;                        // Number
+const isHappy = true;                 // Boolean
+const bigNumber = 123n;               // BigInt
+let favoriteToy;                      // Undefined
+const missingValue = null;            // Null
+const id = Symbol("id");              // Symbol
+const dog = { name: "Maxi", age: 9 }; // Object</code></pre>
+<p>Arrays are also objects in JavaScript.</p>
+
+
+<h2>Variables</h2>
+<p>Variables are used to store values in JavaScript. They can be declared using const, let or var.</p>
+<p>Use const whenever possible, otherwise let. </p>
+<p>The use of var should generally be avoided because it is not block-scoped.</p>
+
+<h3>const</h3>
+<p>A variable declared with const cannot be reassigned. However, objects and arrays declared with const can still be modified.</p>
+<pre><code>const person = {
+    name: "Amin"
+};
+
+person.age = 123;</code></pre>
+
+<pre><code>const things = ["mouse"];
+
+things.push("car");</code></pre>
+<p>The person object now has both name and age properties, and the things array contains "mouse" and "car".</p>
+
+
+
+<h3>let</h3>
+<p>Variables declared with let can be reassigned. They are block-scoped, meaning they are only accessible within the block where they are declared.</p>
+<pre><code>let age = 9;
+age = 10;</code></pre>
+
+<h3>var</h3>
+<p>Variables declared with var can also be reassigned, but unlike let and const, var is not block-scoped. This can lead to unexpected behavior.</p>
+
+<pre><code>{
+    var someValue = 123;
+    {
+        var someValue = 456;
+    }
+    console.log(someValue); 
+}</code></pre>
+<p>The output is: 456</p>
+<p>The inner declaration changes the same variable because var does not create a new block-scoped variable.</p>
+
+
+
+<h2>Scope</h2>
+<p>Scope determines where a variable can be accessed in the code. </p>
+<p>Variables declared with let and const are block-scoped, while var is function-scoped or global-scoped, depending on where it is declared.</p>
+
+<h3>Block Scope</h3>
+<p>A block is defined by curly braces {}. Variables declared with let inside a block are not accessible outside that block.</p>
+
+<pre><code>{
+    let someOtherValue = true;
+
+    {
+        let someOtherValue = false;
+    }
+
+    console.log(someOtherValue); 
+}</code></pre>
+<p>The output is true.</p>
+<p>The inner block has its own variable. It does not change the variable in the outer block.</p>
+
+
+
+<h3>Scope in Loops</h3>
+<p>Using var and let in a loop can produce different results when a callback function is executed later.</p>
+<p>Example using var:</p>
+<pre><code>for (var i = 0; i <= 5; i++) {
+    setTimeout(() => {
+        console.log(i);
+    }, 1000);
+}</code></pre>
+<p>Output after one second: 6, 6, 6, 6, 6, 6.</p>
+<p>Example using let:</p>
+<pre><code>for (let i = 0; i <= 5; i++) {
+    setTimeout(() => {
+        console.log(i);
+    }, 1000);
+}</code></pre>
+<p>Output after approximately one second: 0, 1, 2, 3, 4, 5.</p>
+<p>With var, all callbacks share the same variable, which has reached 6 when they execute.</p> 
+<p>With let, each loop iteration gets its own binding of i.</p>
+
+
+
+<h2>Type Coercion and Equality</h2>
+<p>Type coercion happens when JavaScript automatically converts a value from one data type to another.</p>
+<pre><code>console.log("5" == 5);</code></pre>
+<p>The output is "true".</p>
+<pre><code>console.log("5" === 5);</code></pre>
+<p>The output is: "false".</p>
+<p>The == operator allows type coercion, while === compares both value and data type without converting them.</p>
+<p>Always using strict equality operators (=== and !==) to avoid unexpected results.</p>
+
+
+<h2>Strings and Template Literals</h2>
+<p>Strings are used to represent text in JavaScript. They can be written using single quotes, double quotes or backticks.</p>
+
+<pre><code>const greetingOne = "Hej med dig, '''''ven'";
+const greetingTwo = 'Hej med dig, """"""""""ven"';</code></pre>
+
+<h3>Template Literals</h3>
+<p>Template literals use backticks (`) and allow variables and expressions to be inserted using ${}.</p>
+
+<pre><code>const person = { name: "Amin" };
+
+const greetingThree = `Hej, med 'dig', "${person.name}"`;
+
+console.log(greetingThree);</code></pre>
+<p>Template literals also support strings that span multiple lines without using special newline characters.</p>
+
+
+
+<h2>Objects and Arrays</h2>
+
+<h3>Objects</h3>
+<p>Objects store data as key-value pairs. Properties can be accessed and modified using dot notation.</p>
+<pre><code>const person = {
+    name: "Amin"
+};
+
+person.age = 123;
+
+console.log(person);</code></pre>
+<p>Even though person is declared with const, its properties can still be modified.</p>
+
+<h3>Arrays</h3>
+<p>Arrays store multiple values in an ordered collection. Array elements can be accessed using their index, starting at 0.</p>
+<pre><code>const things = ["mouse"];
+
+things.push("car");
+
+console.log(things[0], things[1]);</code></pre>
+<p>The push() method adds an element to the end of an array. The example prints "mouse" and "car".</p>
+
+
+
+
+
+
+<h2>Functions</h2>
+<p>Functions are reusable blocks of code that can receive parameters and return values.</p>
+
+<h3>Function Declaration</h3>
+<p>A function declaration uses the function keyword. Function declarations are hoisted, meaning they can be called before they appear in the code.</p>
+<pre><code>getRandomInt(5, 10);
+
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) + min);
+}</code></pre>
+
+<h3>Function Expression</h3>
+<p>A function can also be assigned to a variable.</p>
+<pre><code>const getRandomIntAnonymousFunction = function(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) + min);
+};</code></pre>
+
+<h3>Arrow Function</h3>
+<p>Arrow functions provide a shorter syntax for writing functions.</p>
+<pre><code>const getRandomIntArrowFunction = (min, max) => {
+    return Math.floor(Math.random() * (max - min + 1) + min);
+};</code></pre>
+
+
+
+
+<h3>Callbacks and higher-order Functions</h3>
+<p>In JavaScript, functions can be passed as arguments to other functions. A function that receives another function as an argument is called a higher-order function.</p>
+<p>A callback is a function passed to another function to be executed by it.</p>
+<pre><code>function genericActionPerformer(name, action) {
+    return action(name);
+}
+
+function playingGuitarAction(name) {
+    return `${name} likes to play guitar`;
+}
+
+console.log(
+    genericActionPerformer("Elias", playingGuitarAction)
+);</code></pre>
+<p>The genericActionPerformer function receives a name and a callback function. It calls the callback with the provided name.</p>
+<p>Output: Elias likes to play guitar</p>
+
+
+
+<h2>Loops and Array Methods</h2>
+<p>Loops are used to repeat operations. Use built-in array methods instead of traditional for loops whenever possible.</p>
+<h3>forEach()</h3>
+<p>The forEach() method executes a callback function for each element in an array. It does not create a new array.</p>
+<pre><code>const numbers = [1, 2, 3, 4, 5];
+
+numbers.forEach(number => {
+    console.log(number);
+});</code></pre>
+
+<h3>map()</h3>
+<p>The map() method transforms each element and returns a new array with the same number of elements.</p>
+<pre><code>const numbers = [1, 2, 3, 4, 5];
+
+const doubledNumbers = numbers.map(number => number * 2);
+
+console.log(doubledNumbers);</code></pre>
+<p>The output is: [2, 4, 6, 8, 10]</p>
+
+<h3>filter()</h3>
+<p>The filter() method returns a new array containing only the elements that satisfy a condition.</p>
+<pre><code>const countries = [
+    { name: "Lesotho", gdp: 530 },
+    { name: "Papua New Guinea", gdp: 1025 },
+    { name: "Saint Vincent and the Grenadines", gdp: 1200 }
+];
+
+const richCountries = countries.filter(
+    country => country.gdp > 1000
+);</code></pre>
+<p>The result contains Papua New Guinea and Saint Vincent and the Grenadines.</p>
+
+
+
+
+
+
+<h3>Loops · Recommended Practices and common pitfalls</h3>
+<p>JavaScript supports traditional for loops, for...in and for...of. However use built-in array methods whenever possible.</p>
+
+<h3>Traditional Loops</h3>
+<p>A traditional for loop requires manually managing an index.</p>
+<pre><code>const numbers = [6, 7, 8, 9];
+
+for (let i = 0; i < numbers.length; i++) {
+    console.log(numbers[i]);
+}</code></pre>
+
+<p>For simple array iteration, forEach() is often clearer:</p>
+<pre><code>numbers.forEach(number => console.log(number));</code></pre>
+
+<h3>for...in and for...of</h3>
+<p>for...in iterates over property keys, while for...of iterates over values.</p>
+<pre><code>let list = [4, 5, 6];
+
+for (let i in list) {
+    console.log(i); 
+}
+</code></pre>
+<p>The output is: "0", "1", "2" (strings)</p>
+<pre><code>
+for (let i of list) {
+    console.log(i); 
+}</code></pre>
+<p>The output is: 4, 5, 6 (numbers)</p>
+
+
+
+
+<h3>Avoiding Side Effects</h3>
+<p>Changing the original array during iteration can cause unintended side effects. Methods such as map() can create a new array instead.</p>
+<pre><code>const numbers = [6, 7, 8, 9];
+
+const doubledNumbers = numbers.map(number => number * 2);
+
+</code></pre>
+<p>doubledNumbers: [12, 14, 16, 18]</p>
+<p>numbers remains unchanged</p>
+
+
+
+
+
+
+
+
+<h3>find()</h3>
+<p>The find() method returns the first element in an array that satisfies a condition. If no element matches, it returns undefined.</p>
+<pre><code>const numbers = [1, 2, 3, 4, 5];
+
+const foundNumber = numbers.find(number => number > 3);
+
+console.log(foundNumber); // 4</code></pre>
+
+<h3>findIndex()</h3>
+<p>The findIndex() method returns the index of the first element that satisfies a condition. If no element matches, it returns -1.</p>
+<pre><code>const numbers = [1, 2, 3, 4, 5];
+
+const foundIndex = numbers.findIndex(number => number > 3);
+
+console.log(foundIndex); // 3</code></pre>
+
+
+
+
+
+
+
+
+<h3>indexOf()</h3>
+<p>The indexOf() method returns the index of a specified value in an array. If the value is not found, it returns -1.</p>
+<pre><code>const numbers = [1, 2, 3, 4, 5];
+
+console.log(numbers.indexOf(3)); // 2
+console.log(numbers.indexOf(9)); // -1</code></pre>
+
+<h3>reduce()</h3>
+<p>The reduce() method processes the elements of an array and combines them into a single result.</p>
+<pre><code>const numbers = [1, 2, 3, 4, 5];
+
+const sum = numbers.reduce((accumulator, number) => {
+    return accumulator + number;
+}, 0);
+
+console.log(sum); // 15</code></pre>
+<p>The reduce() method combines all numbers into a single result. The accumulator starts at 0 and stores the running total as each number is added.</p>
+
+
+
+
+
+
+<h2>Date and Time</h2>
+<p>JavaScript has a built-in Date object that is used to work with dates and time.</p>
+
+<h3>Creating a Date Object</h3>
+<pre><code>const currentDate = new Date();
+
+console.log(currentDate);</code></pre>
+<p>new Date() creates a Date object representing the current date and time.</p>
+
+<h3>Date()</h3>
+<pre><code>console.log(Date());</code></pre>
+<p>Calling Date() without new returns a string representing the current date and time.</p>
+
+
+<h3>Date.now()</h3>
+<p>Date.now() returns the number of milliseconds since January 1, 1970 (Unix Epoch Time).</p>
+<pre><code>console.log(Date.now());</code></pre>
+<p>Unlike new Date(), Date.now() returns a number rather than a Date object.</p>
+
+
+<h3>Date Methods</h3>
+<p>JavaScript provides methods for retrieving individual parts of a date.</p>
+<pre><code>const currentDate = new Date();
+
+console.log(currentDate.getFullYear());
+console.log(currentDate.getMonth());
+console.log(currentDate.getDate());
+console.log(currentDate.getDay());
+console.log(currentDate.getHours());
+console.log(currentDate.getMinutes());
+console.log(currentDate.getSeconds());</code></pre>
+
+<p>getFullYear() returns the year, while getMonth() returns the month as a number from 0 to 11.</p>
+<p>getDate() returns the day of the month, while getDay() returns the day of the week from 0 (Sunday) to 6 (Saturday).</p>
+<p>getHours(), getMinutes() and getSeconds() return the individual time components.</p>
+
+
+
+
+
+<h3>Formatting Dates</h3>
+<p>JavaScript provides methods for converting Date objects into different string formats.</p>
+<pre><code>const currentDate = new Date();
+
+console.log(currentDate.toString());
+console.log(currentDate.toDateString());
+console.log(currentDate.toISOString());
+console.log(currentDate.toLocaleString("da-DK"));</code></pre>
+
+<p>toString() returns a readable date and time including timezone information.</p>
+<p>toDateString() returns the date without the time.</p>
+<p>toISOString() returns the date and time in ISO 8601 format using UTC.</p>
+<p>toLocaleString("da-DK") formats the date and time according to Danish conventions.</p>
+
+
+
+<h3>Finding the Current Month</h3>
+<p>The current month can be retrieved in different ways using JavaScript.</p>
+
+<h3>Using getMonth()</h3>
+<p>
+<p>The month number is used as an index to find the corresponding month name in an array (0-11).</p></p>
+<pre><code>const months = [
+    'January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December'
+];
+
+const currentMonth = months[new Date().getMonth()];
+
+console.log(currentMonth);</code></pre>
+
+<h3>Using toLocaleDateString()</h3>
+<p>toLocaleDateString() can return the month name directly when given formatting options.</p>
+<pre><code>const currentMonth = new Date().toLocaleDateString(
+    'en-GB',
+    { month: 'long' }
+);
+
+console.log(currentMonth);</code></pre>
+<p>Both approaches return the name of the current month.</p>
+
+
+
+
+
+<h3>Finding the Current Day</h3>
+
+<p>The current day of the week can be retrieved using getDay() or toLocaleDateString().</p>
+
+<h3>Using getDay()</h3>
+
+<p>getDay() returns a number between 0 (Sunday) and 6 (Saturday). This number can be used as an index in an array.</p>
+
+<pre><code>const days = [
+    "Sunday", "Monday", "Tuesday", "Wednesday",
+    "Thursday", "Friday", "Saturday"
+];
+
+const currentDay = days[new Date().getDay()];
+
+console.log(currentDay);</code></pre>
+
+
+
+
+
+<h3>Using toLocaleDateString()</h3>
+<p>toLocaleDateString() can return the weekday name directly.</p>
+<pre><code>const currentDay = new Date().toLocaleDateString(
+    'en-GB',
+    { weekday: 'long' }
+);
+
+console.log(currentDay);</code></pre>
+<p>Both approaches return the name of the current weekday.</p>
