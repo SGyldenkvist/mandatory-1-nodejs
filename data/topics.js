@@ -11,12 +11,12 @@ export const topics = [
     },
     {
         title: 'REST API',
-        description: 'HTTP methods, endpoints and CRUD operations',
+        description: 'HTTP methods, CRUD operations, endpoint design and status codes',
         url: '/rest-api'
     },
     {
         title: 'Express',
-        description: 'Server setup, routing, middleware, redirects and routers',
+        description: 'Server setup, routing, parameters, responses, middleware, static files and redirects',
         url: '/express'
     },
     {

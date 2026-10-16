@@ -2,10 +2,23 @@
 
 <p>Documentation of Node.js concepts, including npm, dependencies, modules and environment variables</p>
 
-<h2>What is Node.js?</h2>
+<nav class="documentation-nav" aria-label="On this page">
+    <a href="#what-is-nodejs">What is Node.js?</a>
+    <a href="#running-nodejs">Running JavaScript with Node.js</a>
+    <a href="#npm-dependencies">npm and dependencies</a>
+    <a href="#package-files">Package Files</a>
+    <a href="#npm-scripts">npm Scripts and Nodemon</a>
+    <a href="#module-systems">CommonJS vs. ES Modules</a>
+    <a href="#import-export">Import and Export</a>
+    <a href="#environment-variables">Environment Variables</a>
+    <a href="#built-in-modules">Built-in Modules</a>
+
+</nav>
+
+<h2 id="what-is-nodejs">What is Node.js?</h2>
 <p>Node.js is a runtime environment that allows JavaScript to execute outside the browser. This way, JavaScript can be used for both frontend and backend development.</p>
 
-<h2>Running JavaScript with Node.js</h2>
+<h2 id="running-nodejs">Running JavaScript with Node.js</h2>
 <p>JavaScript files can be executed with Node.js through the terminal using the node command and the filename.</p>
 <pre><code>node app.js</code></pre>
 <p>Node.js also provides a REPL (Read-Eval-Print Loop), which allows JavaScript code to be executed interactively in the terminal.</p>
@@ -17,7 +30,7 @@
 <p>To exit the REPL, type .exit.</p>
 
 
-<h2>npm and dependencies</h2>
+<h2 id="npm-dependencies">npm and dependencies</h2>
 <p>npm (Node package manager) is used to install and manage packages in a Node.js project. The packages are the project's dependencies.</p>
 <p>To initialize a new Node.js project:</p>
 <pre><code>npm init</code></pre>
@@ -30,7 +43,7 @@
 <p>To install the dependencies listed in an existing package.json:</p>
 <pre><code>npm install</code></pre>
 
-<h2>package.json, package-lock.json and node_modules</h2>
+<h2 id="package-files">package.json, package-lock.json and node_modules</h2>
 <p>package.json contains information about the project, including its dependencies and scripts.</p>
 <p>Example from this documentation project's package.json:</p>
 <pre><code>{
@@ -45,7 +58,7 @@
 <p>package-lock.json records the exact dependency versions installed.</p>
 <p>The node_modules directory contains the installed packages.</p>
 
-<h2>npm scripts and nodemon</h2>
+<h2 id="npm-scripts">npm scripts and nodemon</h2>
 <p>npm scripts are commands defined in the scripts section of package.json. They make it easier to run common tasks.</p>
 <p>Example from the Planter project:</p>
 <pre><code>"scripts": {
@@ -57,7 +70,7 @@
 <p>Nodemon is a development tool that automatically restarts the Node.js application when watched files change.</p>
 <p>cross-env allows environment variables to be set across different operating systems.</p>
 
-<h2>CommonJS vs. ES Modules</h2>
+<h2 id="module-systems">CommonJS vs. ES Modules</h2>
 <p>Node.js supports different module systems for importing and exporting code between files.</p>
 <p>CommonJS uses require() to import modules and module.exports to export them.</p>
 <pre><code>const express = require('express');</code></pre>
@@ -65,7 +78,7 @@
 <pre><code>import express from 'express';</code></pre>
 
 
-<h2>Import and Export</h2>
+<h2 id="import-export">Import and Export</h2>
 <p>Modules allow code to be organized into separate files. Import and export make it possible to reuse code between these files.</p>
 <h3>CommonJS example:</h3>
 <p>In CommonJS, require() is used to import modules, and module.exports is used to export values.</p>
@@ -106,7 +119,7 @@ import { readPage } from './templatingEngine.js';</code></pre>
 
 <p>ES modules can be enabled in a Node.js project by setting "type": "module" in package.json.</p>
 
-<h2>Environment variables</h2>
+<h2 id="environment-variables">Environment variables</h2>
 <p>Environment variables allow configuration values to be provided outside the source code. In Node.js they can be accessed through process.env.</p>
 <pre><code>const PORT = process.env.PORT ?? 8080;</code></pre>
 <p>This uses the PORT environment variable if it is defined. Otherwise, the default value is 8080.</p>
@@ -114,7 +127,7 @@ import { readPage } from './templatingEngine.js';</code></pre>
 <p>cross-env can be used in npm scripts to set environment variables. For example, cross-env PORT=9090 sets the PORT environment variable to 9090, which can then be accessed through process.env.PORT in the application.</p>
 
 
-<h2>Node.js Built-in modules (fs and path)</h2>
+<h2 id="built-in-modules">Node.js Built-in modules (fs and path)</h2>
 <p>Node.js includes built-in modules such as fs for working with files and path for working with file paths.</p>
 <pre><code>import fs from 'fs';
 const content = fs.readFileSync("example.txt", "utf-8");

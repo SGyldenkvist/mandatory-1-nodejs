@@ -28,3 +28,30 @@ main h3 {
     font-size: 1.2rem;
     margin-top: 28px;
 }
+
+main ul, main li {
+    color: #50364f;
+}
+
+
+
+
+.documentation-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 24px 0;
+}
+
+.documentation-nav a {
+    padding: 8px 12px;
+    border: 1px solid #b9a7c9;
+    border-radius: 20px;
+    background-color: #f0e9f4;
+    color: #51364f;
+    text-decoration: none;
+}
+
+.documentation-nav a:hover {
+    background-color: #e3d5ed;
+}

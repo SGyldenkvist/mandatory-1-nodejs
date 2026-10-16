@@ -1,0 +1,237 @@
+<h1>REST API</h1>
+<p>Documentation of REST APIs, HTTP methods, endpoints and CRUD operations using Node.js and Express.</p>
+
+<nav class="documentation-nav" aria-label="On this page">
+    <a href="#what-is-rest-api">What is a REST API?</a>
+    <a href="#http-methods">HTTP Methods and CRUD</a>
+    <a href="#get-requests">GET Requests</a>
+    <a href="#post-requests">POST Requests</a>
+    <a href="#put-requests">PUT Requests</a>
+    <a href="#patch-requests">PATCH Requests</a>
+    <a href="#delete-requests">DELETE Requests</a>
+    <a href="#http-status-codes">HTTP Status Codes</a>
+</nav>
+
+<h2 id="what-is-rest-api">What is a REST API?</h2>
+<p>REST stands for Representational State Transfer. It is an architectural style for designing APIs.</p>
+<p>An API (Application Programming Interface) allows applications to communicate with each other.</p>
+<p>REST APIs use HTTP methods to perform operations on resources.</p>
+
+
+
+<h2 id="http-methods">HTTP Methods and CRUD</h2>
+<p>HTTP methods describe which operation a client wants to perform on a resource.</p>
+<p>CRUD stands for Create, Read, Update and Delete. These operations can be mapped to HTTP methods.</p>
+
+<h3>HTTP Methods</h3>
+<ul>
+    <li><strong>GET:</strong> Retrieve resources (Read).</li>
+    <li><strong>POST:</strong> Create a new resource (Create).</li>
+    <li><strong>PUT:</strong> Replace an existing resource (Update).</li>
+    <li><strong>PATCH:</strong> Partially update an existing resource (Update).</li>
+    <li><strong>DELETE:</strong> Remove a resource (Delete).</li>
+</ul>
+
+
+
+<h3>Animals API Endpoints</h3>
+<p>The resources are animals.</p>
+<p>This example follows three REST API design conventions:</p>
+<ul>
+    <li><strong>Ordering:</strong> The HTTP methods are listed in a consistent order, making the API easier to read.</li>
+    <li><strong>Plural resource names:</strong> Endpoints use plural names, such as /animals.</li>
+    <li><strong>Correct HTTP methods:</strong> Each HTTP method matches the operation performed on the resource.</li>
+</ul>
+<pre><code>GET    /animals
+GET    /animals/:id
+POST   /animals
+PUT    /animals/:id
+PATCH  /animals/:id
+DELETE /animals/:id</code></pre>
+
+
+
+
+
+<h2 id="get-requests">GET Requests</h2>
+<p>The GET method is used to retrieve resources from a server.</p>
+
+<h3>GET All Animals</h3>
+<p>The /animals endpoint returns all animals stored in the array.</p>
+<pre><code>app.get('/animals', (req, res) => {
+    res.send({ data: animals });
+});</code></pre>
+<p>app.get() defines a route that handles GET requests. The response contains the animals array inside a data property.</p>
+
+<h3>GET Animal by ID</h3>
+<p>The /animals/:id endpoint retrieves a specific animal using a route parameter.</p>
+<pre><code>app.get("/animals/:id", (req, res) => {
+    const providedId = Number(req.params.id);
+    const foundAnimal = animals.find((animal) => animal.id === providedId);
+
+    if (!foundAnimal) {
+        return res.status(404).send({
+            errorMessage: `No animal found by id ${providedId}`
+        });
+    }
+
+    res.send({ data: foundAnimal });
+});</code></pre>
+<p>req.params.id retrieves the id from the url. Number() converts it from a string to a number, 
+    and find() searches the array for a matching animal.</p>
+<p>If no animal is found, the server returns HTTP status code 404 (Not Found).</p>
+
+
+
+
+
+
+<h2 id="post-requests">POST Requests</h2>
+<p>The POST method is used to create a new resource on the server.</p>
+
+<h3>Creating a New Animal</h3>
+<p>In the Animals API, a POST request to /animals adds a new animal to the array.</p>
+<pre><code>let nextId = 3;
+
+app.post("/animals", (req, res) => {
+    const providedAnimal = req.body;
+
+    providedAnimal.id = nextId++;
+
+    animals.push(providedAnimal);
+
+    res.status(201).send({ data: providedAnimal });
+});</code></pre>
+<p>req.body contains the data sent by the client. The server assigns a unique id using nextId++, 
+    adds the animal to the array using push(), and returns the created animal.</p>
+
+<h3>Parsing JSON Request Bodies</h3>
+<p>Express needs JSON middleware to read JSON data from incoming requests.</p>
+<pre><code>app.use(express.json());</code></pre>
+<p>This middleware parses incoming JSON request bodies and makes the data available through req.body.</p>
+
+<h2 id="put-requests">PUT Requests</h2>
+<p>The PUT method is used to replace an existing resource.</p>
+
+<h3>PUT Example</h3>
+<pre><code>app.put('/animals/:id', (req, res) => {
+    const providedId = Number(req.params.id);
+
+    const foundIndex = animals.findIndex(
+        (animal) => animal.id === providedId
+    );
+
+    if (foundIndex === -1) {
+        return res.status(404).send({
+            data: `No animal found by id ${providedId}`
+        });
+    }
+
+    const updatedAnimal = req.body;
+    updatedAnimal.id = providedId;
+
+    animals[foundIndex] = updatedAnimal;
+
+    res.send({ data: updatedAnimal });
+});</code></pre>
+<p>req.params.id gets the animal's id from the url, and findIndex() finds its position in the array. If the animal is not found, the server returns status code 404. Otherwise, the existing animal is replaced with the data from req.body, while keeping the original id.</p>
+
+
+
+
+<h2 id="patch-requests">PATCH Requests</h2>
+<p>The PATCH method is used to partially update an existing resource.</p>
+
+<h3>PUT vs. PATCH</h3>
+<p>PUT replaces an existing resource, while PATCH updates selected properties without replacing the entire resource.</p>
+<p>In practice, PATCH is often used when only specific properties need to be updated, instead of replacing the entire resource with PUT.</p>
+
+<h3>Updating an Animal</h3>
+<p>In the Animals API, PATCH /animals/:id updates an animal using its id.</p>
+<pre><code>app.patch("/animals/:id", (req, res) => {
+    const providedId = Number(req.params.id);
+    const foundAnimalIndex = animals.findIndex((animal) => animal.id === providedId);
+
+    if (foundAnimalIndex === -1) {
+        return res.status(404).send({
+            errorMessage: `No animal found by id ${providedId}`
+        });
+    }
+
+    const providedAnimal = req.body;
+    const foundAnimal = animals[foundAnimalIndex];
+
+    const animalToCreate = { ...foundAnimal, ...providedAnimal, id: providedId };
+
+    animals[foundAnimalIndex] = animalToCreate;
+
+    res.send({ data: animalToCreate });
+});</code></pre>
+<p>Although the variable is named animalToCreate, the PATCH request updates an existing animal rather than creating a new one. 
+    PATCH changes selected properties while preserving the others, unlike PUT, which replaces the resource.</p>
+<p>findIndex() finds the position of the animal in the array. If the animal does not exist, the server returns status code 404.</p>
+<p>The spread operator (...) combines the existing animal with the new values from req.body. 
+    Properties provided in the request overwrite existing properties, while other properties are preserved.</p>
+<p>The id is set to providedId to prevent the request body from changing the animal's id.</p>
+
+
+
+
+
+<h2 id="delete-requests">DELETE Requests</h2>
+<p>The DELETE method is used to remove a resource from the server.</p>
+
+<h3>Deleting an Animal</h3>
+<p>In the Animals API, DELETE /animals/:id removes an animal using its id.</p>
+<pre><code>app.delete("/animals/:id", (req, res) => {
+    const providedId = Number(req.params.id);
+    const foundAnimalIndex = animals.findIndex((animal) => animal.id === providedId);
+
+    if (foundAnimalIndex === -1) {
+        return res.status(404).send({
+            errorMessage: `No animal found by id ${providedId}`
+        });
+    }
+
+    animals.splice(foundAnimalIndex, 1);
+
+    res.status(204).send();
+});</code></pre>
+<p>findIndex() searches for the animal's position in the array. 
+    If the animal does not exist, the server returns HTTP status code 404 (Not Found).</p>
+<p>splice(foundAnimalIndex, 1) removes one element from the array at the specified index.</p>
+<p>If the animal is deleted successfully, the server returns HTTP status code 204 (No Content), 
+    meaning the request succeeded without returning a response body.</p>
+
+
+
+
+<h2 id="http-status-codes">HTTP Status Codes</h2>
+<p>HTTP status codes indicate the result of a request sent from a client to a server.</p>
+
+<ul>
+    <li><strong>2xx – Success:</strong> The request was successful.</li>
+    <li><strong>3xx – Redirection:</strong> The client is redirected to another location.</li>
+    <li><strong>4xx – Client Error:</strong> The request could not be completed because of a client-side issue.</li>
+    <li><strong>5xx – Server Error:</strong> The server encountered an error.</li>
+</ul>
+
+<h3>Status Codes in the Animals API</h3>
+
+<ul>
+    <li><strong>200 OK: </strong>A successful GET, PUT or PATCH request.</li>
+    <li><strong>201 Created: </strong>A new animal was succesfully created using POST.</li>
+    <li><strong>204 No Content: </strong>An animal was successfully deleted without returning a response body.</li>
+    <li><strong>404 Not Found: </strong>No animal was found with the provided id.</li>
+</ul>
+
+<p>Express uses res.status() to set the HTTP status code of a response.</p>
+<pre><code>res.status(404).send({
+    errorMessage: `No animal found by id ${providedId}`
+});
+
+res.status(204).send();</code></pre>
+
+
+
+

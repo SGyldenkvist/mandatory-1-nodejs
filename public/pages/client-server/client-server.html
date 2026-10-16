@@ -1,0 +1,150 @@
+<h1>Client & Server</h1>
+<p>Documentation of client-server communication, HTTP, URLs, Fetch API, CORS and XSS.</p>
+
+<nav class="documentation-nav" aria-label="On this page">
+    <a href="#client-server">Client-Server Model</a>
+    <a href="#http">HTTP Requests and Responses</a>
+    <a href="#urls">URLs</a>
+    <a href="#fetch">Fetch API</a>
+    <a href="#cors">CORS</a>
+    <a href="#xss">XSS</a>
+</nav>
+
+<h2 id="client-server">Client-Server Model</h2>
+<p>The client-server model describes how clients and servers communicate over a network.</p>
+<p>A client sends a request to a server, and the server processes the request and sends a response back.</p>
+<p>A web browser is an example of a client, while an Express application can act as a server.</p>
+<p>A server can also act as a client when it sends requests to another server.</p>
+
+<h3>Example of Client-Server Communication</h3>
+<pre><code>app.get('/greetings', (req, res) => {
+    res.send('Hello from the server!');
+});</code></pre>
+
+<p>When a client sends a GET request to /greetings,the Express server receives the request and sends a response containing the message "Hello from the server!". 
+    The client then receives the response.</p>
+
+
+
+<h3>Server Acting as a Client</h3>
+<p>A server can also act as a client when it sends requests to another server. 
+    An example of this is the /proxy endpoint, where Express uses fetch() to retrieve data from Google before responding to the original client. 
+    See the <a href="#fetch">Fetch API example</a></p>
+
+
+
+<h2 id="http">HTTP Requests and Responses</h2>
+<p>HTTP (Hypertext Transfer Protocol) is used for communication between clients and servers.</p>
+<p>The client sends an HTTP request, and the server returns an HTTP response.</p>
+
+<h3>HTTP Request</h3>
+<p>An HTTP request contains a method, a url path and headers. It can also contain a body with data sent to the server.</p>
+
+<h3>HTTP Response</h3>
+<p>An HTTP response contains a status code and headers. It can also contain a body with data such as HTML or JSON.</p>
+
+<p>For more information about HTTP methods and status codes, see the <a href="/rest-api">REST API documentation</a>.</p>
+
+
+
+
+<h2 id="urls">URLs</h2>
+<p>URL stands for Uniform Resource Locator.</p>
+<p>It specifies the address of a resource on the web.</p>
+<p>A URL can contain a protocol, domain, path and query parameters.</p>
+
+
+<p>Example: https://www.google.com/search?hl=en&amp;q=what%20doth%20life</p>
+<ul>
+    <li><strong>Protocol:</strong> https = specifies how the client communicates with the server.</li>
+    <li><strong>Protocol separator:</strong> :// = separates the protocol from the rest of the URL.</li>
+    <li><strong>Subdomain:</strong> www = a subdomain of google.com.</li>
+    <li><strong>Domain:</strong> google.com = the domain name.</li>
+    <li><strong>Top-level domain:</strong> .com = the last part of the domain name.</li>
+    <li><strong>Path:</strong> /search = identifies the requested resource.</li>
+    <li><strong>Query string:</strong> ?hl=en&amp;q=what%20doth%20life = contains the query parameters.</li>
+    <li><strong>Query parameters:</strong> hl=en and q=what%20doth%20life = key-value pairs that provide additional information.</li>
+</ul>
+
+<h3>Path Variables</h3>
+<p>A path variable is a dynamic value in a URL path. For example, in /search/1, the value 1 can be used as a path variable.</p>
+
+
+
+
+
+
+<h2 id="fetch">Fetch API</h2>
+<p>The Fetch API allows JavaScript to make HTTP requests and receive responses from a server.</p>
+<p>The fetch() function returns a Promise, which represents a result that may become available later.</p>
+
+<pre><code>fetch('https://example.com')
+    .then(response => response.text())
+    .then(data => console.log(data));</code></pre>
+
+<p>In this example, fetch() sends a GET request. The first .then() reads the response body as text, 
+    and the second .then() logs the result to the console.</p>
+
+<h3>Fetching Data from Another Server</h3>
+<p>Fetch can also be used in Node.js to retrieve data from another server. 
+    In this example, an Express endpoint fetches a webpage and sends the content back to the client.</p>
+
+<pre><code>app.get('/proxy', (req, res) => {
+    fetch('https://www.google.com/')
+        .then(response => response.arrayBuffer())
+        .then(buffer => {
+            const decoder = new TextDecoder('ISO-8859-1');
+            res.send(decoder.decode(buffer));
+        });
+});</code></pre>
+<p>When a client sends a GET request to /proxy, the Express server uses fetch() to request a webpage from Google.
+    The response is read as binary data using response.arrayBuffer(). Then TextDecoder converts the data into text using the specified character encoding (ISO-8859-1).
+    And then res.send() sends the decoded text back to the client.</p>
+
+ 
+
+
+<h2 id="cors">CORS</h2>
+<p>CORS stands for Cross-Origin Resource Sharing. It is a browser security mechanism that controls whether JavaScript from one origin can access responses from another origin.</p>
+
+<p>An origin consists of a protocol, domain and port.</p>
+<p>For example:</p>
+<p>http://localhost:3000 and http://localhost:8080</p>
+<p>They are different origins because they use different ports.</p>
+
+<p>CORS restrictions are enforced by browsers.</p>
+<p>Server-side requests are not subject to the same browser restrictions, which is one reason SSR can help avoid certain CORS issues.</p>
+
+
+
+<h2 id="xss">XSS</h2>
+<p>XSS stands for Cross-Site Scripting. It is a security vulnerability where an attacker injects malicious code into a webpage, causing it to execute in another user's browser.</p>
+
+<h3>Preventing XSS</h3>
+<p>One way to reduce the risk of XSS in the frontend is to use textContent instead of innerHTML when displaying untrusted user input.</p>
+<p>textContent treats the input as text</p>
+<p>while innerHTML interprets it as HTML.</p>
+
+<pre><code>const userInput = '&lt;script&gt;alert("XSS")&lt;/script&gt;';
+
+element.textContent = userInput;</code></pre>
+<p>In this example, the input is displayed as text instead of being interpreted as HTML. On the backend, user input should also be handled safely, for example by using appropriate sanitization when HTML content is allowed.</p>
+
+
+<h3>Escaping HTML Characters</h3>
+<p>Another way to prevent XSS when inserting untrusted text into HTML is to escape special characters.
+    This sanitizeXSS() function can be used to replace special characters with HTML entities.</p>
+
+<pre><code>export function sanitizeXSS(string) {
+    return string
+        .replaceAll('&amp;', '&amp;amp;')
+        .replaceAll('&lt;', '&amp;lt;')
+        .replaceAll('&gt;', '&amp;gt;')
+        .replaceAll('"', '&amp;quot;')
+        .replaceAll("'", '&amp;#39;')
+        .replaceAll('`', '&amp;#x60;')
+        .replaceAll('/', '&amp;#x2F;');
+}</code></pre>
+
+<p>The function replaces special characters with HTML entities. This helps prevent untrusted input from being interpreted as HTML markup when inserted into HTML text content.
+    But different contexts may require different security measures.</p>

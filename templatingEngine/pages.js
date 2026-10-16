@@ -38,3 +38,29 @@ export const javascriptPage = constructPage(javascript, {
     tabTitle: 'JavaScript | Documentation',
     cssLinks: '<link rel="stylesheet" href="/assets/css/documentation.css">'
 });
+
+
+
+const restApi = readPage('public/pages/rest-api/rest-api.html');
+
+export const restApiPage = constructPage(restApi, {
+    tabTitle: 'REST API | Documentation',
+    cssLinks: '<link rel="stylesheet" href="/assets/css/documentation.css">'
+});
+
+
+const express = readPage('public/pages/express/express.html');
+
+export const expressPage = constructPage(express, {
+    tabTitle: 'Express | Documentation',
+    cssLinks: '<link rel="stylesheet" href="/assets/css/documentation.css">'
+});
+
+
+
+const clientServer = readPage('public/pages/client-server/client-server.html');
+
+export const clientServerPage = constructPage(clientServer, {
+    tabTitle: 'Client & Server | Documentation',
+    cssLinks: '<link rel="stylesheet" href="/assets/css/documentation.css">'
+});

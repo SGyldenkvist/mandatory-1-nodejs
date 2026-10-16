@@ -1,0 +1,122 @@
+<h1>Express</h1>
+<p>Documentation of Express, including server setup, routing, middleware, static files and redirects.</p>
+
+<nav class="documentation-nav" aria-label="On this page">
+    <a href="#what-is-express">What is Express?</a>
+    <a href="#server-setup">Server Setup</a>
+    <a href="#routing">Routing</a>
+    <a href="#route-parameters">Route and Query Parameters</a>
+    <a href="#responses">Sending Responses</a>
+    <a href="#middleware">Middleware and Static Files</a>
+    <a href="#redirects">Redirects</a>
+</nav>
+
+<h2 id="what-is-express">What is Express?</h2>
+<p>Express is a web framework for Node.js used to build web servers and web applications. 
+    It provides functionality for handling HTTP requests and responses, defining routes, and using middleware.</p>
+<p>Node.js can create a web server using its built-in HTTP module, but Express simplifies common tasks by providing methods such as app.get(), res.send() and app.listen().</p>
+
+
+<h2 id="server-setup">Setting Up an Express Server</h2>
+<p>To set up an Express server, first import the Express module.</p>
+<p>Then call express() to create an Express application and store it in the app variable.</p>
+<p>Then app.listen(8080) starts the server on port 8080. The callback function runs when the server has started and prints a message in the terminal.</p>
+<pre><code>import express from 'express';
+
+const app = express();
+
+app.listen(8080, () => {
+    console.log('Server is running on port', 8080);
+});</code></pre>
+
+
+
+<h2 id="routing">Routing</h2>
+<p>Routing determines how the server responds to requests sent to specific endpoints. 
+    In Express, routes are defined using methods such as app.get() and app.post().
+</p>
+
+<pre><code>app.get('/blablabla', (req, res) => {
+    res.send({ data: "They talk a lot but nothing is said" });
+});</code></pre>
+
+<p> For more examples of HTTP methods and endpoints, see the <a href="/rest-api">REST API documentation</a>.
+</p>
+
+
+
+
+
+<h2 id="route-parameters">Route Parameters and Query Parameters</h2>
+<h3>Route Parameters</h3>
+<p>Route parameters are dynamic values in a url path. In Express, they are defined using a colon (:) and can be accessed through req.params.</p>
+<p>Route parameters are received as strings, even when they contain numbers.</p>
+
+<pre><code>app.get('/beers/:beerType/:amount', (req, res) => {
+    res.send({
+        data: `You ordered ${req.params.amount} of ${req.params.beerType}`
+    });
+});</code></pre>
+<p>For example, a GET request to /beers/IPA/3 gives beerType the value "IPA" and amount the value "3".</p>
+
+<h3>Query Parameters</h3>
+<p>Query parameters are used to send additional information through a url. 
+    They appear after a question mark (?) and are written as key-value pairs. Multiple query parameters are separated by an ampersand (&amp;).
+</p>
+
+<pre><code>app.get('/bars/forgottenItems', (req, res) => {
+    res.send({ data: req.query });
+});</code></pre>
+
+<p>For example, /bars/forgottenItems?item=phone&amp;color=black sends two query parameters: item and color. In Express, these values can be accessed through req.query.</p>
+
+
+
+
+<h2 id="responses">Sending Responses</h2>
+
+<p>Express uses the response object (res) to send a response back to the client.</p>
+
+<h3>res.send()</h3>
+<p>res.send() sends a response to the client. The response can contain text, HTML or an object.</p>
+
+<pre><code>app.get('/blablabla', (req, res) => {
+    res.send({ data: "They talk a lot but nothing is said" });
+});</code></pre>
+
+<h3>res.sendFile()</h3>
+<p>res.sendFile() sends an HTML file or another file to the client.</p>
+
+<pre><code>import path from 'path';
+
+app.get('/', (req, res) => {
+    res.sendFile(path.resolve('public/frontpage/index.html'));
+});</code></pre>
+
+
+
+<h2 id="middleware">Middleware and Static Files</h2>
+
+<h3>Middleware</h3>
+<p>Middleware functions run during the request-response cycle. They can process requests, send responses or pass control to the next middleware function.</p>
+<pre><code>app.use(express.json());</code></pre>
+<p>express.json() is built-in middleware that parses incoming JSON request bodies and makes the parsed data available through req.body.</p>
+
+<h3>Static Files</h3>
+<p>Static files are files such as CSS, client-side JavaScript and images that the server sends to the browser.</p>
+<p>Express provides built-in middleware called express.static() to make files in a specified directory publicly accessible.</p>
+<pre><code>app.use(express.static('public'));</code></pre>
+<p>In this example, Express serves static files from the public directory. For example, a file located at public/frontpage/frontpage.css can be accessed through /frontpage/frontpage.css.</p>
+
+
+
+
+<h2 id="redirects">Redirects</h2>
+<p>A redirect tells the client to make a new request to a different url. In Express, redirects can be created using res.redirect().</p>
+
+<pre><code>app.get('/chatterroom', (req, res) => {
+    res.redirect('/blablabla');
+});</code></pre>
+
+<p>In this example, a request to /chatterroom redirects the client to /blablabla. 
+    By default, res.redirect() sends the HTTP status code 302 (Found), indicating a temporary redirect.</p>

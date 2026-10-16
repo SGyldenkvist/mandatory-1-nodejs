@@ -2,8 +2,19 @@
 
 <p>Documentation of JavaScript concepts, including data types, scope, functions, array methods and Date.</p>
 
+<nav class="documentation-nav" aria-label="On this page">
+    <a href="#data-types">Data Types</a>
+    <a href="#variables">Variables</a>
+    <a href="#scope">Scope</a>
+    <a href="#type-coercion">Type Coercion and Equality</a>
+    <a href="#strings">Strings and Template Literals</a>
+    <a href="#objects-arrays">Objects and Arrays</a>
+    <a href="#functions">Functions</a>
+    <a href="#loops">Loops and Array Methods</a>
+    <a href="#date-time">Date and Time</a>
+</nav>
 
-<h2>Data Types</h2>
+<h2 id="data-types">Data Types</h2>
 <p>JavaScript has eight data types: String, Number, Boolean, BigInt, Undefined, Null, Symbol and Object.</p>
 <pre><code>const name = "Maxi";                  // String
 const age = 9;                        // Number
@@ -16,7 +27,7 @@ const dog = { name: "Maxi", age: 9 }; // Object</code></pre>
 <p>Arrays are also objects in JavaScript.</p>
 
 
-<h2>Variables</h2>
+<h2 id="variables">Variables</h2>
 <p>Variables are used to store values in JavaScript. They can be declared using const, let or var.</p>
 <p>Use const whenever possible, otherwise let. </p>
 <p>The use of var should generally be avoided because it is not block-scoped.</p>
@@ -55,8 +66,21 @@ age = 10;</code></pre>
 <p>The inner declaration changes the same variable because var does not create a new block-scoped variable.</p>
 
 
+<h3>Prefix and Postfix Increment</h3>
+<p>The increment operator (++) increases a variable by 1. The difference between prefix and postfix is when the value is returned.</p>
+<pre><code>let value = 5;
 
-<h2>Scope</h2>
+// Postfix
+console.log(value++); // 5
+console.log(value);   // 6
+
+// Prefix
+console.log(++value); // 7
+console.log(value);   // 7</code></pre>
+<p>Postfix (value++) returns the original value before incrementing it. Prefix (++value) increments the variable first and then returns the new value.</p>
+
+
+<h2 id="scope">Scope</h2>
 <p>Scope determines where a variable can be accessed in the code. </p>
 <p>Variables declared with let and const are block-scoped, while var is function-scoped or global-scoped, depending on where it is declared.</p>
 
@@ -98,7 +122,7 @@ age = 10;</code></pre>
 
 
 
-<h2>Type Coercion and Equality</h2>
+<h2 id="type-coercion">Type Coercion and Equality</h2>
 <p>Type coercion happens when JavaScript automatically converts a value from one data type to another.</p>
 <pre><code>console.log("5" == 5);</code></pre>
 <p>The output is "true".</p>
@@ -108,7 +132,7 @@ age = 10;</code></pre>
 <p>Always using strict equality operators (=== and !==) to avoid unexpected results.</p>
 
 
-<h2>Strings and Template Literals</h2>
+<h2 id="strings">Strings and Template Literals</h2>
 <p>Strings are used to represent text in JavaScript. They can be written using single quotes, double quotes or backticks.</p>
 
 <pre><code>const greetingOne = "Hej med dig, '''''ven'";
@@ -126,7 +150,7 @@ console.log(greetingThree);</code></pre>
 
 
 
-<h2>Objects and Arrays</h2>
+<h2 id="objects-arrays">Objects and Arrays</h2>
 
 <h3>Objects</h3>
 <p>Objects store data as key-value pairs. Properties can be accessed and modified using dot notation.</p>
@@ -153,7 +177,7 @@ console.log(things[0], things[1]);</code></pre>
 
 
 
-<h2>Functions</h2>
+<h2 id="functions">Functions</h2>
 <p>Functions are reusable blocks of code that can receive parameters and return values.</p>
 
 <h3>Function Declaration</h3>
@@ -198,7 +222,7 @@ console.log(
 
 
 
-<h2>Loops and Array Methods</h2>
+<h2 id="loops">Loops and Array Methods</h2>
 <p>Loops are used to repeat operations. Use built-in array methods instead of traditional for loops whenever possible.</p>
 <h3>forEach()</h3>
 <p>The forEach() method executes a callback function for each element in an array. It does not create a new array.</p>
@@ -330,7 +354,7 @@ console.log(sum); // 15</code></pre>
 
 
 
-<h2>Date and Time</h2>
+<h2 id="date-time">Date and Time</h2>
 <p>JavaScript has a built-in Date object that is used to work with dates and time.</p>
 
 <h3>Creating a Date Object</h3>
