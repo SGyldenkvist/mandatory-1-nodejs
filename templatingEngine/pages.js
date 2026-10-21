@@ -64,3 +64,28 @@ export const clientServerPage = constructPage(clientServer, {
     tabTitle: 'Client & Server | Documentation',
     cssLinks: '<link rel="stylesheet" href="/assets/css/documentation.css">'
 });
+
+
+const frontend = readPage('public/pages/frontend/frontend.html');
+
+export const frontendPage = constructPage(frontend, {
+    tabTitle: 'Frontend | Documentation',
+    cssLinks: '<link rel="stylesheet" href="/assets/css/documentation.css">'
+});
+
+
+const ssr = readPage('public/pages/ssr/ssr.html');
+
+export const ssrPage = constructPage(ssr, {
+    tabTile: 'SSR | Documentation',
+    cssLinks: '<link rel="stylesheet" href="/assets/css/documentation.css">'
+});
+
+
+const gitTools = readPage('public/pages/git-tools/git-tools.html');
+
+export const gitToolsPage = constructPage(gitTools, {
+    tabTitle: 'Git & tools | Documentation',
+    cssLinks: '<link rel="stylesheet" href=/assets/css/documentation.css>'
+});
+

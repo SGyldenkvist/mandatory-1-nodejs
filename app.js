@@ -1,5 +1,5 @@
 import express from 'express';
-import { frontpagePage, nodejsPage, javascriptPage, restApiPage, expressPage, clientServerPage} from './templatingEngine/pages.js';
+import { frontpagePage, nodejsPage, javascriptPage, restApiPage, expressPage, clientServerPage, frontendPage, ssrPage, gitToolsPage} from './templatingEngine/pages.js';
 import { topics } from './data/topics.js';
 
 const app = express();
@@ -38,6 +38,18 @@ app.get('/express', (req, res) => {
 
 app.get('/client-server', (req, res) => {
     res.send(clientServerPage);
+});
+
+app.get('/frontend', (req, res) => {
+    res.send(frontendPage);
+})
+
+app.get('/ssr', (req, res) => {
+    res.send(ssrPage);
+});
+
+app.get('/git-tools', (req, res) => {
+    res.send(gitToolsPage);
 });
 
 

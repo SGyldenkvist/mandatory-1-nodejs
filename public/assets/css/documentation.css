@@ -23,7 +23,7 @@ main h2 {
     margin-top: 40px;
 }
 
-main h3 {
+main h3, main h4 {
     color: #50364f;
     font-size: 1.2rem;
     margin-top: 28px;

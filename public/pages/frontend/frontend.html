@@ -1,0 +1,317 @@
+<h1>Frontend</h1>
+<p>Documentation of HTML, CSS, semantic HTML, static files and frontend structure.</p>
+
+
+<nav class="documentation-nav" aria-label="On this page">
+    <a href="#html">HTML</a>
+    <a href="#css">CSS</a>
+    <a href="#semantic-html">Semantic HTML</a>
+    <a href="#static-files">Static Files</a>
+    <a href="#frontend-structure">Frontend Structure</a>
+    <a href="#client-side-js">Client-Side JavaScript</a>
+</nav>
+
+
+<h2 id="html">HTML</h2>
+<p>HTML stands for HyperText Markup Language.</p>
+<p>HTML is used to structure the content on a website. This happens through different HTML elements.</p>
+
+<p>Some examples of HTML elements are:</p>
+<ul>
+    <li>&lt;h1&gt; to &lt;h6&gt; - headings</li>
+    <li>&lt;p&gt; - paragraphs</li>
+    <li>&lt;a&gt; - links</li>
+    <li>&lt;div&gt; - container for content</li>
+    <li>&lt;img&gt; - images</li>
+    <li>&lt;script&gt; - JavaScript</li>
+    <li>&lt;link&gt; - links to external resources such as CSS files</li>
+    <li>&lt;meta&gt; - metadata about the document</li>
+</ul>
+
+
+
+<h3>HTML Document Structure</h3>
+<p>An HTML document consists of different parts, including head and body.</p>
+<p>The head contains information about the document, such as the title, metadata and links to CSS files.</p>
+<p>The body contains the visible content of the webpage, such as headings, paragraphs, images and links.</p>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;My documentation website&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Welcome to my documentation website&lt;/h1&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+
+<h3>Script Tag</h3>
+<p>The script tag is used to include JavaScript in an HTML document.</p>
+<p>JavaScript can be written directly inside the script tag or loaded from an external JavaScript file using the src attribute.</p>
+
+<pre><code>&lt;script&gt;
+    console.log('Hello World');
+&lt;/script&gt;</code></pre>
+
+<pre><code>&lt;script src="/frontpage/frontpage.js"&gt;&lt;/script&gt;</code></pre>
+<p>A script tag can be placed in the head or the body of an HTML document. 
+    The defer attribute can be used with external classic scripts to ensure that the HTML is parsed before the JavaScript runs.</p>
+<pre><code>&lt;head&gt;
+    &lt;script src="app.js" defer&gt;&lt;/script&gt; 
+&lt;/head&gt;
+</code></pre>
+
+
+<h3>DOM and JavaScript</h3>
+<p>DOM stands for Document Object Model.</p>
+<p>The DOM represents the HTML document as objects that JavaScript can access and change.</p>
+<p>JavaScript can be used to create a new HTML elements, find existing elements and change their content.</p>
+
+<h4>Creating HTML Elements with JavaScript</h4>
+<pre><code>const paragraph = document.createElement('p');
+paragraph.textContent = 'Programming is cool';
+document.body.appendChild(paragraph);</code></pre>
+
+<p>In this example, createElement() creates a new paragraph element.</p>
+<p>textContent adds text to the paragraph.</p>
+<p>appendChild() adds the paragraph to the body of the HTML document.</p>
+
+
+<h4>Accessing and Updating HTML Elements</h4>
+<p>JavaScript can also find an existing HTML element and change its content.</p>
+<p>The client-side (HTML and JavaScript):</p>
+
+<pre><code>&lt;h3 id="counter"&gt;&lt;/h3&gt;
+
+&lt;script&gt;
+    fetch('/api/counter')
+        .then((response) => response.json())
+        .then((result) => {
+            const counterH3 = document.getElementById('counter');
+            counterH3.textContent = result.data;
+        });
+&lt;/script&gt;</code></pre>
+
+<p>getElementById() finds the HTML element with the id "counter".</p>
+<p>textContent changes the text inside the element to the value of result.data.</p>
+<p>The value comes from the response to the fetch request.</p>
+<p>The server-side (Express):</p>
+<pre><code>let counter = 0;
+
+app.get('/api/counter', (req, res) => {
+    res.send({ data: ++counter});
+});
+</code></pre>
+<p>The server increases the counter by one for each request and returns the updated value as JSON.</p>
+
+
+
+
+
+
+<h2 id="css">CSS</h2>
+<p>CSS stands for Cascading Style Sheets.</p>
+<p>CSS is used to style HTML elements, such as changing colors, fonts, font sizes, padding and border-radius.</p>
+
+
+<h3>Inline CSS</h3>
+<p>Inline CSS is written directly inside an HTML element using the style attribute.</p>
+<pre><code>&lt;body style="background-color: red;"&gt;</code></pre>
+<p>In this example, the background-color property sets the background color of the body to red.</p>
+
+
+
+<h3>Internal CSS</h3>
+<p>Internal CSS is written inside a style tag in the HTML document, usually in the head.</p>
+<pre><code>&lt;head&gt;
+    &lt;style&gt;
+        h1 {
+            color: darkred;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;</code></pre>
+<p>In this example, the CSS selector h1 selects all h1 elements, and the color property changes their text color to dark red.</p>
+
+
+<h3>External CSS</h3>
+<p>External CSS is written in a separate CSS file and linked to the HTML document using a link tag in the head.</p>
+<pre><code>&lt;link rel="stylesheet" href="/frontpage/frontpage.css"&gt;</code></pre>
+<p>The href attribute specifies the path to the CSS file, and rel="stylesheet" tells the browser that the linked file is a stylesheet.</p>
+
+
+
+<h3>CSS Selectors</h3>
+<p>CSS selectors are used to select the HTML elements that should be styled.</p>
+<p>Elements can be selected by their tag name, class or id.</p>
+<pre><code>/* Element selector */
+h1 {
+    color: darkred;
+}
+
+/* Class selector */
+.container {
+    padding: 20px;
+}
+
+/* ID selector */
+#counter {
+    font-size: 24px;
+}</code></pre>
+<p>The h1 selector selects all h1 elements.</p>
+<p>The .container selector selects elements with the class "container".</p>
+<p>The #counter selector selects the element with the id "counter".</p>
+
+
+
+
+
+<h2 id="semantic-html">Semantic HTML</h2>
+
+
+<p>Semantic HTML means using HTML elements that describe the meaning and purpose of the content.</p>
+<p>Examples of semantic HTML elements are:</p>
+
+<ul>
+    <li>&lt;header&gt; - introductory content, such as a website header</li>
+    <li>&lt;nav&gt; - navigation links</li>
+    <li>&lt;main&gt; - the main content of the webpage</li>
+    <li>&lt;section&gt; - a thematic section of content, usually with a heading</li>
+    <li>&lt;footer&gt; - footer information</li>
+</ul>
+
+
+
+<h3>Semantic HTML Structure</h3>
+<p>Semantic HTML elements can be used to organize a webpage into different parts.</p>
+
+<pre><code>&lt;header&gt;
+    &lt;h1&gt;My Website&lt;/h1&gt;
+&lt;/header&gt;
+
+&lt;nav&gt;
+    &lt;a href="/"&gt;Home&lt;/a&gt;
+&lt;/nav&gt;
+
+&lt;main&gt;
+    &lt;section&gt;
+        &lt;h2&gt;About&lt;/h2&gt;
+        &lt;p&gt;Information about the website.&lt;/p&gt;
+    &lt;/section&gt;
+&lt;/main&gt;
+
+&lt;footer&gt;
+    &lt;p&gt;My Website&lt;/p&gt;
+&lt;/footer&gt;</code></pre>
+
+<p>The main element contains the primary content of the webpage, while section can be used to divide the content into thematic sections.</p>
+
+
+
+
+
+
+
+<h2 id="static-files">Static files</h2>
+<p>Static files are files that the server can send to the client without generating their content dynamically. Examples include HTML, CSS, JavaScript files and images.</p>
+
+<h3>Express Static</h3>
+<p>Express can serve static files from a directory using express.static().</p>
+<pre><code>app.use(express.static('public'));</code></pre>
+<p>In this example, Express makes the files inside the public directory available to the client.</p>
+
+
+<h3>Static File Paths</h3>
+<p>When using express.static('public'), the public directory becomes the root directory for static files.</p>
+<p>For example, if the CSS file is located at public/frontpage/frontpage.css, it can be linked in HTML like this:</p>
+<pre><code>&lt;link rel="stylesheet" href="/frontpage/frontpage.css"&gt;</code></pre>
+<p>The public directory is not included in the URL because Express serves files relative to that directory.</p>
+
+
+
+
+
+
+
+<h2 id="frontend-structure">Frontend structure</h2>
+<p>A frontend project can be organized into folders to separate HTML, CSS, JavaScript and images.</p>
+<p>Organizing files makes the project easier to navigate and maintain.</p>
+
+<h3>Folder Structure</h3>
+<p>This is an example of a project where frontend files are organized into pages, components and assets.</p>
+<pre><code>project/
+├── public/
+│   ├── assets/
+│   │   ├── css/
+│   │   │   └──index.css
+│   │   ├── images/
+│   │   │   └── plant.png
+│   │   └── js/
+│   │       ├── escapeHTML.js
+│   │       └── footer.js
+│   ├── components/
+│   │   ├── footer/
+│   │   │   └── footer.html
+│   │   └── header/
+│   │       └── header.html
+│   └── pages/
+│       ├── about
+│       │   └── about.html  
+│       └── frontpage
+│           ├── frontpage.css
+│           ├── frontpage.html
+│           └── frontpage.js
+├── templatingEngine/
+│   ├── pages.js
+│   └── templatingEngine.js
+├── util/
+│    └──fetchPlants.js
+├── app.js
+├── nodemon.json
+├── package-lock.json
+└── package.json
+
+</code></pre>
+
+<p>The assets directory contains CSS, JavaScript and images.</p>
+<p>The components directory contains reusable parts of the website, such as the header and footer.</p>
+<p>The pages directory contains the content for individual pages.</p>
+
+
+
+
+<h2 id="client-side-js">Client-side JavaScript</h2>
+<p>Client-side JavaScript runs in the browser and can be used to make webpages interactive.</p>
+
+<h3>JavaScript Modules in the Browser</h3>
+<p>JavaScript modules allow code to be split into separate files using import and export.</p>
+<p>The type="module" attribute tells the browser to treat the JavaScript file as an ES module.</p>
+<pre><code>&lt;script type="module" src="/frontpage/frontpage.js"&gt;&lt;/script&gt;</code></pre>
+<p>Module scripts are deferred by default, meaning they run after the HTML document has been parsed.</p>
+
+
+<h3>Client-Side Redirects</h3>
+
+<p>Client-side redirects can be used to navigate the browser to another page using JavaScript.</p>
+
+<pre><code>setTimeout(() => {
+    // window.location.href = "/";
+    // location.href = "/";
+    // location.replace('/');
+}, 3000);</code></pre>
+
+<p>setTimeout() runs a function after a specified delay. In this example, the delay is 3000 milliseconds (3 seconds).</p>
+
+<p>window.location.href and location.href can be used to navigate to another URL.</p>
+<p>location.replace() also navigates to another URL, but replaces the current page in the browser history.</p>
+<p>The redirect statements are commented out in this example. To perform a redirect, one of them must be uncommented.</p>
+
+
+
+<h3>HTML Redirect</h3>
+<p>A redirect can also be created using a meta refresh tag in HTML.</p>
+<pre><code>&lt;meta http-equiv="refresh" content="3;/"&gt;</code></pre>
+<p>In this example, the browser redirects to the front page after 3 seconds.</p>
+

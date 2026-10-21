@@ -21,24 +21,24 @@ export const topics = [
     },
     {
         title: 'Client & Server',
-        description: 'Requests, responses, fetch, CORS and XSS',
+        description: 'Client-server model, HTTP, URLs, fetch API, CORS and XSS',
         url: '/client-server'
 
     },
     {
         title: 'Frontend',
-        description: 'HTML, CSS, static files and semantic HTML',
+        description: 'HTML, CSS, semantic HTML, static files and client-side JavaScript',
         url: '/frontend'
 
     },
     {
         title: 'SSR',
-        description: 'Server-side rendering vs. client-side rendering, templating, file reading',
+        description: 'Server-side vs. client-side rendering, SEO, file reading and templating',
         url: '/ssr'
     },
     {
         title: 'Git & tools',
-        description: 'Git, GitHub, nodemon, Postman and deployment',
+        description: 'Git, GitHub, Clean Code, linting, nodemon, Postman and deployment',
         url: '/git-tools'
 
     }

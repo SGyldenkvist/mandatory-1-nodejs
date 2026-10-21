@@ -1,0 +1,142 @@
+
+<h1>Git & Tools</h1>
+<p>Documentation of Git, GitHub, development tools and deployment.</p>
+
+<nav class="documentation-nav" aria-label="On this page">
+    <a href="#git">Git</a>
+    <a href="#github">GitHub</a>
+    <a href="#clean-code">Clean Code</a>
+    <a href="#linting">Linting</a>
+    <a href="#nodemon">Nodemon</a>
+    <a href="#postman">Postman</a>
+    <a href="#deployment">Deployment</a>
+</nav>
+
+<h2 id="git">Git</h2>
+<p>Git is a distributed version control system used to track changes in a project.</p>
+<p>Git makes it possible to save different versions of code, view previous changes and work with branches.</p>
+
+<h3>Basic Git Commands</h3>
+<ul>
+    <li><code>git init</code> - Initializes a new Git repository.</li>
+    <li><code>git status</code> - Shows the current state of the working directory and staging area.</li>
+    <li><code>git add .</code> - Stages changes in the current directory and its subdirectories.</li>
+    <li><code>git commit -m "message"</code> - Creates a commit with the staged changes.</li>
+    <li><code>git log</code> - Shows the commit history.</li>
+    <li><code>git diff</code> - Shows unstaged changes.</li>
+</ul>
+
+
+<h2 id="github">GitHub</h2>
+<p>GitHub is a platform for hosting Git repositories online.</p>
+<p>Git is used for version control, while GitHub makes it possible to store repositories remotely, share code and collaborate with others.</p>
+
+<h3>Working with Remote Repositories</h3>
+<ul>
+    <li><code>git clone URL</code> - Creates a local copy of a remote repository.</li>
+    <li><code>git remote -v</code> - Shows the configured remote repositories.</li>
+    <li><code>git push</code> - Uploads local commits to a remote repository.</li>
+    <li><code>git pull</code> - Fetches and integrates changes from a remote repository into the current branch.</li>
+    <li><code>git fetch</code> - Downloads remote changes without automatically merging them into the current branch.</li>
+</ul>
+
+<h3>Branches and Pull Requests</h3>
+<p>Branches make it possible to work on changes without directly modifying the main branch.</p>
+<p>On GitHub, a pull request can be created to propose changes, review code and merge changes into another branch.</p>
+
+
+
+<h2 id="clean-code">Clean Code</h2>
+<p>Clean Code is about writing code that is easy to read, understand and maintain.</p>
+<p>Following Clean Code principles makes it easier to work with code and make changes in the future.</p>
+
+<h3>Clean Code Principles</h3>
+<ul>
+    <li>Meaningful names - Use descriptive names for variables and functions.</li>
+    <li>Small functions - Keep functions focused on a single responsibility.</li>
+    <li>Avoid repetition - Avoid duplicating the same code unnecessarily.</li>
+    <li>Consistent formatting - Use consistent indentation and formatting to improve readability.</li>
+</ul>
+
+
+<h2 id="linting">Linting</h2>
+<p>Linting is the process of analyzing source code to identify potential errors and code quality issues.</p>
+<p>A linter is a tool that checks code against a set of predefined rules without executing the program.</p>
+
+<h3>ESLint</h3>
+<p>ESLint is a linting tool for JavaScript.</p>
+<p>It can help developers identify potential problems, unused variables and inconsistencies in code style.</p>
+<p>Using a linter can help improve code quality and maintain consistency across a project.</p>
+
+
+
+<h2 id="nodemon">Nodemon</h2>
+<p>Nodemon is a development tool that automatically restarts a Node.js application when changes are detected in watched files.</p>
+<p>This makes development easier because the server does not have to be restarted manually after every change.</p>
+
+<h3>Installing Nodemon</h3>
+<pre><code>npm install --save-dev nodemon</code></pre>
+<p>The --save-dev flag installs Nodemon as a development dependency.</p>
+
+<h3>Running Nodemon</h3>
+<pre><code>npx nodemon app.js</code></pre>
+<p>This starts the application using Nodemon.</p>
+<pre><code>npx nodemon --ext js,html,css app.js</code></pre>
+<p>The --ext option specifies which file extensions Nodemon should watch. In this example, changes to JavaScript, HTML and CSS files can trigger a restart.</p>
+
+
+
+
+<h2 id="postman">Postman</h2>
+<p>Postman is a tool used to send HTTP requests and test APIs.</p>
+<p>It makes it possible to test endpoints without creating a frontend application.</p>
+
+
+
+<h3>Testing API Endpoints</h3>
+<p>Postman supports different HTTP methods, including GET, POST, PUT, PATCH and DELETE.</p>
+<p>For example, an API with an animals resource can be tested using these requests:</p>
+<ul>
+    <li><code>GET /animals</code> - Retrieves all animals.</li>
+    <li><code>GET /animals/1</code> - Retrieves an animal by its ID.</li>
+    <li><code>POST /animals</code> - Creates a new animal.</li>
+    <li><code>PUT /animals/1</code> - Replaces an existing animal.</li>
+    <li><code>PATCH /animals/1</code> - Partially updates an existing animal.</li>
+    <li><code>DELETE /animals/1</code> - Deletes an animal.</li>
+</ul>
+
+
+
+<h3>Request Body and Responses</h3>
+<p>When sending a POST or PATCH request, JSON data can be included in the request body.</p>
+<pre><code>{
+    "name": "Parrot",
+    "age": 34
+}</code></pre>
+<p>Postman displays the server's response, including the status code and response body.</p>
+<p>This can be used to check whether an endpoint behaves as expected.</p>
+
+
+
+
+
+<h2 id="deployment">Deployment</h2>
+<p>Deployment is the process of making an application available outside the local development environment.</p>
+<p>During development, a Node.js application can run locally on localhost. After deployment, the application can be accessed through a public URL.</p>
+
+<h3>Deploying a Node.js Application</h3>
+<p>A Node.js application can be deployed to a hosting platform that supports its runtime and configuration.</p>
+<p>In the course, we worked with deployment using Vercel.</p>
+
+<h3>Important Considerations</h3>
+<ul>
+    <li>The application must have the correct configuration for the hosting environment.</li>
+    <li>Dependencies must be declared in package.json.</li>
+    <li>Environment variables can be used for configuration that differs between development and production.</li>
+    <li>Static files must be accessible through the correct paths.</li>
+</ul>
+
+<h3>Local Development vs. Production</h3>
+<p>During local development, tools such as Nodemon can automatically restart the application when files change.</p>
+<p>In production, the application runs in a deployed environment where users can access it without running the project on their own computers.</p>
+
